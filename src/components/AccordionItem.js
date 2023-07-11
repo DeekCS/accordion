@@ -1,8 +1,6 @@
-import { useState } from "react";
-
-export function AccordionItem({ num, title, text }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const toggle = () => setIsOpen((isOpen) => !isOpen);
+export function AccordionItem({ num, title, curOpen, setCurOpen, children }) {
+  const isOpen = curOpen === num;
+  const toggle = () => setCurOpen(isOpen ? null : num);
   return (
     <div className={isOpen ? "item open" : "item "}>
       <p className="number">{num < 10 ? `0${num}` : num}</p>
@@ -16,7 +14,7 @@ export function AccordionItem({ num, title, text }) {
           <span onClick={toggle}>+</span>
         )}
       </p>
-      {isOpen && <div className="content-box">{text}</div>}
+      {isOpen && <div className="content-box">{children}</div>}
     </div>
   );
 }
